@@ -68,3 +68,13 @@ The testing dataset shares the same format as the training dataset, except for t
 
 * Examples
   * Basic Pyspark Dataframe operations: https://github.com/apache/spark/blob/master/examples/src/main/python/sql/basic.py
+
+## Troubleshooting
+
+### Zeppelin Timeout after 5minuts
+
+Increase `spark.sql.broadcastTimeout` in the config:
+
+`spark = SparkSession.builder.appName("pCTR").config("spark.sql.broadcastTimeout", "600").getOrCreate()	`
+
+http://spark.apache.org/docs/latest/sql-programming-guide.html#other-configuration-options
