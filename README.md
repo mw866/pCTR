@@ -20,7 +20,7 @@ Predict the Click-Through Rate of ads given the query and user information.
 
 ![data.png](data.png)
 
-### Train
+### Training
 
 | Column Position | Column Name   | Description                              | Format                 |
 | --------------- | ------------- | ---------------------------------------- | ---------------------- |
@@ -37,20 +37,21 @@ Predict the Click-Through Rate of ads given the query and user information.
 | 10              | DescriptionID | a property of ads.  This is the key of 'descriptionid_tokensid.txt'. | String                 |
 | 11              | UserID        | This is the key of 'userid_profile.txt'.  When we cannot identify the user, this field has a special value of 0. | String                 |
 
+### Test
 
+The testing dataset shares the same format as the training dataset, except for the counts of ad impressions (**Impression**) and ad clicks (**Click**) that are needed for computing the empirical CTR. 
 
 ## Reference
 
 ### Data
 
 * The original Kaggle competition: https://www.kaggle.com/c/kddcup2012-track2#description
-
 * Apache Hivemall solution: http://hivemall.incubator.apache.org/userguide/regression/kddcup12tr2.html
-
 * Position-Normalized Click Prediction in Search Advertising: http://dl.acm.org/citation.cfm?id=2339654
+* CTR Definition: https://support.google.com/adwords/answer/2615875?hl=en
 
 
-  ​			
+  			
 
 ### Zeppelin
 
