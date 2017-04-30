@@ -49,9 +49,7 @@ The testing dataset shares the same format as the training dataset, except for t
 * Apache Hivemall solution: http://hivemall.incubator.apache.org/userguide/regression/kddcup12tr2.html
 * Position-Normalized Click Prediction in Search Advertising: http://dl.acm.org/citation.cfm?id=2339654
 * CTR Definition: https://support.google.com/adwords/answer/2615875?hl=en
-
-
-  			
+* A Two-Stage Ensemble of Diverse Models for Advertisement Ranking in KDD Cup 2012: www.csie.ntu.edu.tw/~htlin/paper/doc/wskdd12cup.pdf  			
 
 ### Zeppelin
 
