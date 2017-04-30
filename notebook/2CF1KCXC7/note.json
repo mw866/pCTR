@@ -1,0 +1,1246 @@
+{
+  "paragraphs": [
+    {
+      "text": "%md\n# CS 5304 Assignments #3\nBy Chris M Wang (mw866@cornell.edu)",
+      "user": "anonymous",
+      "dateUpdated": "Apr 27, 2017 1:55:35 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eCS 5304 Assignments #3\u003c/h1\u003e\n\u003cp\u003eBy Chris M Wang (\u003ca href\u003d\"mailto:\u0026#109;w\u0026#56;\u0026#x36;\u0026#x36;\u0026#x40;\u0026#x63;\u0026#111;\u0026#x72;\u0026#x6e;e\u0026#108;\u0026#x6c;\u0026#46;e\u0026#100;\u0026#117;\"\u003e\u0026#109;w\u0026#56;\u0026#x36;\u0026#x36;\u0026#x40;\u0026#x63;\u0026#111;\u0026#x72;\u0026#x6e;e\u0026#108;\u0026#x6c;\u0026#46;e\u0026#100;\u0026#117;\u003c/a\u003e)\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493315700403_-63469888",
+      "id": "20170427-135500_1483027983",
+      "dateCreated": "Apr 27, 2017 1:55:00 PM",
+      "dateStarted": "Apr 27, 2017 1:55:35 PM",
+      "dateFinished": "Apr 27, 2017 1:55:38 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Intialiaze",
+      "text": "%pyspark\nimport numpy as np\nfrom pyspark.sql.functions import *\nfrom pyspark.sql.types import *\nfrom pyspark.sql import functions\nfrom __future__ import division\n\nimport os.path\ndir_name \u003d \"/Users/kylin1989/Downloads/data\"\n\nspark \u003d SparkSession.builder.appName(\"pCTR\").config(\"spark.sql.broadcastTimeout\", \"6000\").getOrCreate()",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 3:24:54 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1493315735204_993866062",
+      "id": "20170427-135535_324419007",
+      "dateCreated": "Apr 27, 2017 1:55:35 PM",
+      "dateStarted": "Apr 30, 2017 3:24:54 PM",
+      "dateFinished": "Apr 30, 2017 3:25:40 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Load training parquet",
+      "text": "%pyspark\ntrain \u003d spark.read.format(\"parquet\").options(header\u003d\"true\", inferSchema\u003d\"true\").load(os.path.join(dir_name, \"training_top25K_normCTR_assembled\"))\ntrain",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 6:24:27 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 93.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "DataFrame[normCTR: double, features: vector]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493315848653_-1728446944",
+      "id": "20170427-135728_48369402",
+      "dateCreated": "Apr 27, 2017 1:57:28 PM",
+      "dateStarted": "Apr 30, 2017 3:37:52 PM",
+      "dateFinished": "Apr 30, 2017 3:37:59 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Load test parquet",
+      "text": "%pyspark\ntest \u003d spark.read.format(\"parquet\").options(header\u003d\"true\", inferSchema\u003d\"true\").load(os.path.join(dir_name, \"test_assembled\"))\ntest",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 6:41:00 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 93.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "DataFrame[features: vector]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493317140571_1861129478",
+      "id": "20170427-141900_485884562",
+      "dateCreated": "Apr 27, 2017 2:19:00 PM",
+      "dateStarted": "Apr 30, 2017 6:41:00 PM",
+      "dateFinished": "Apr 30, 2017 6:41:00 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Split Train and Test in training dataset",
+      "text": "%pyspark\ntrain_train, train_test \u003d train.randomSplit([0.9, 0.1], seed\u003d10011)",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 3:37:55 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1493319034436_-1931292290",
+      "id": "20170427-145034_1611025369",
+      "dateCreated": "Apr 27, 2017 2:50:34 PM",
+      "dateStarted": "Apr 30, 2017 3:37:55 PM",
+      "dateFinished": "Apr 30, 2017 3:37:59 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## PART 1: Use machine learning to predict the click-through-rate. \nPerformance for this task should be measured using the Area Under Curve (AUC) metric. In short, the AUC is equal to the probability that a classifier will rank a randomly chosen positive instance higher than a randomly chosen negative one. The AUC results should be computed for the training set and for test set that has about 2 million examples. Describe the experimental setup and discuss bias- variance trade-offs in your experimental design. Submit the code and the predictions for the training set and the test set.",
+      "user": "anonymous",
+      "dateUpdated": "Apr 29, 2017 4:06:07 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003ePART 1: Use machine learning to predict the click-through-rate.\u003c/h2\u003e\n\u003cp\u003ePerformance for this task should be measured using the Area Under Curve (AUC) metric. In short, the AUC is equal to the probability that a classifier will rank a randomly chosen positive instance higher than a randomly chosen negative one. The AUC results should be computed for the training set and for test set that has about 2 million examples. Describe the experimental setup and discuss bias- variance trade-offs in your experimental design. Submit the code and the predictions for the training set and the test set.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493496352689_177513462",
+      "id": "20170429-160552_1472663596",
+      "dateCreated": "Apr 29, 2017 4:05:52 PM",
+      "dateStarted": "Apr 29, 2017 4:06:07 PM",
+      "dateFinished": "Apr 29, 2017 4:06:12 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Binarize normCTR of train for classification",
+      "text": "%pyspark\nfrom pyspark.ml.feature import Binarizer\n\nbinarizer \u003d Binarizer(threshold\u003d0.0, inputCol\u003d\"normCTR\", outputCol\u003d\"binarized_normCTR\")\ntrain_train_binarized \u003d binarizer.transform(train_train)\ntrain_train_binarized",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 3:29:42 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "DataFrame[normCTR: double, features: vector, binarized_normCTR: double]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493497361258_721961039",
+      "id": "20170429-162241_33935927",
+      "dateCreated": "Apr 29, 2017 4:22:41 PM",
+      "dateStarted": "Apr 29, 2017 4:24:36 PM",
+      "dateFinished": "Apr 29, 2017 4:24:36 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Binarize normCTR of test for classification",
+      "text": "%pyspark\ntrain_test_binarized \u003d binarizer.transform(train_test)\ntrain_test_binarized",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 3:29:47 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "DataFrame[normCTR: double, features: vector, binarized_normCTR: double]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493501214372_-1315939514",
+      "id": "20170429-172654_319671991",
+      "dateCreated": "Apr 29, 2017 5:26:54 PM",
+      "dateStarted": "Apr 29, 2017 5:27:30 PM",
+      "dateFinished": "Apr 29, 2017 5:27:30 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Initialize and train the classification model for AUC",
+      "text": "%pyspark\nfrom pyspark.ml.classification import LogisticRegression\n\n# logr \u003d LogisticRegression(maxIter\u003d10, regParam\u003d0.3, elasticNetParam\u003d0.8, featuresCol\u003d\"features\", labelCol\u003d\"binarized_normCTR\" )\nlogr \u003d LogisticRegression(featuresCol\u003d\"features\", labelCol\u003d\"binarized_normCTR\" )\nlogrModel \u003d logr.fit(train_train_binarized)\nlogrModel",
+      "user": "anonymous",
+      "dateUpdated": "Apr 29, 2017 7:17:36 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "table",
+              "height": 93.0,
+              "optionOpen": false
+            }
+          }
+        },
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "LogisticRegression_4293945c258c3339a78b\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493496525054_775057508",
+      "id": "20170429-160845_1637890393",
+      "dateCreated": "Apr 29, 2017 4:08:45 PM",
+      "dateStarted": "Apr 29, 2017 6:46:22 PM",
+      "dateFinished": "Apr 29, 2017 6:55:12 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Use trained classification model to predict test data",
+      "text": "%pyspark\ntrain_test_predictions \u003d logrModel.transform(train_test_binarized)\ntrain_test_predictions",
+      "user": "anonymous",
+      "dateUpdated": "Apr 29, 2017 7:18:21 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "DataFrame[normCTR: double, features: vector, binarized_normCTR: double, rawPrediction: vector, probability: vector, prediction: double]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493499876760_1437996234",
+      "id": "20170429-170436_2090008023",
+      "dateCreated": "Apr 29, 2017 5:04:36 PM",
+      "dateStarted": "Apr 29, 2017 5:28:18 PM",
+      "dateFinished": "Apr 29, 2017 5:28:18 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ntrain_test_predictions.show(5)",
+      "user": "anonymous",
+      "dateUpdated": "Apr 29, 2017 7:24:14 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "+-------+--------------------+-----------------+--------------------+--------------------+----------+\n|normCTR|            features|binarized_normCTR|       rawPrediction|         probability|prediction|\n+-------+--------------------+-----------------+--------------------+--------------------+----------+\n|    0.0|[1000467.0,9458.0...|              0.0|[2.73647265594046...|[0.93914481450741...|       0.0|\n|    0.0|[1000515.0,1805.0...|              0.0|[2.73647265594046...|[0.93914481450741...|       0.0|\n|    0.0|[1000515.0,1805.0...|              0.0|[2.73647265594046...|[0.93914481450741...|       0.0|\n|    0.0|[1000515.0,1805.0...|              0.0|[2.73647265594046...|[0.93914481450741...|       0.0|\n|    0.0|[1000515.0,1805.0...|              0.0|[2.73647265594046...|[0.93914481450741...|       0.0|\n+-------+--------------------+-----------------+--------------------+--------------------+----------+\nonly showing top 5 rows\n\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493500541041_-2112167234",
+      "id": "20170429-171541_1197023242",
+      "dateCreated": "Apr 29, 2017 5:15:41 PM",
+      "dateStarted": "Apr 29, 2017 7:24:14 PM",
+      "dateFinished": "Apr 29, 2017 7:24:50 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Evaluate AUC",
+      "text": "%pyspark\nfrom pyspark.ml.evaluation import BinaryClassificationEvaluator\nevaluator \u003d BinaryClassificationEvaluator(labelCol\u003d\"binarized_normCTR\", rawPredictionCol\u003d\"rawPrediction\", metricName\u003d\"areaUnderROC\")\nevaluator.evaluate(train_test_predictions)",
+      "user": "anonymous",
+      "dateUpdated": "Apr 29, 2017 7:31:31 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0.5\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493321571846_-729688658",
+      "id": "20170427-153251_234185670",
+      "dateCreated": "Apr 27, 2017 3:32:51 PM",
+      "dateStarted": "Apr 29, 2017 7:31:31 PM",
+      "dateFinished": "Apr 29, 2017 7:37:51 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## PART 2: Conduct an error analysis of the model’s predictions on the training and testing set. \nDescribe limitations of the model exposed by the analysis.\n",
+      "user": "anonymous",
+      "dateUpdated": "Apr 29, 2017 4:07:01 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003ePART 2: Conduct an error analysis of the model’s predictions on the training and testing set.\u003c/h2\u003e\n\u003cp\u003eDescribe limitations of the model exposed by the analysis.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493496406528_-2055676423",
+      "id": "20170429-160646_735770069",
+      "dateCreated": "Apr 29, 2017 4:06:46 PM",
+      "dateStarted": "Apr 29, 2017 4:07:01 PM",
+      "dateFinished": "Apr 29, 2017 4:07:01 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "(a) Initialize and train the regression model in a fast-and-dirty way",
+      "text": "%pyspark\nfrom pyspark.ml.regression import LinearRegression\n\nlinr \u003d LinearRegression(maxIter\u003d10, regParam\u003d0.3, elasticNetParam\u003d0.8, labelCol\u003d\"normCTR\", featuresCol\u003d\"features\", predictionCol\u003d\"prediction\",)\nlinrModel \u003d linr.fit(train_train)\nlinrModel.summary",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 5:19:36 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": false,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "\u003cpyspark.ml.regression.LinearRegressionTrainingSummary object at 0x102c35c50\u003e\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493319524798_-344065159",
+      "id": "20170427-145844_497523205",
+      "dateCreated": "Apr 27, 2017 2:58:44 PM",
+      "dateStarted": "Apr 30, 2017 3:40:07 PM",
+      "dateFinished": "Apr 30, 2017 4:03:01 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "b) Initialize and train the regression model with tuning and cross-validation",
+      "text": "%pyspark\nfrom pyspark.ml.evaluation import RegressionEvaluator\nfrom pyspark.ml.regression import LinearRegression,\nfrom pyspark.ml.tuning import ParamGridBuilder, TrainValidationSplit\nlinr \u003d LinearRegression(maxIter\u003d10, regParam\u003d0.3, elasticNetParam\u003d0.8, labelCol\u003d\"normCTR\", featuresCol\u003d\"features\", predictionCol\u003d\"prediction\",)\n\nparamGrid \u003d ParamGridBuilder()\\\n    .addGrid(linr.regParam, [0.1, 0.01]) \\\n    .addGrid(linr.fitIntercept, [False, True])\\\n    .addGrid(linr.elasticNetParam, [0.0, 0.5, 1.0])\\\n    .build()\n\ntvs \u003d TrainValidationSplit(estimator\u003dlr,\n                           estimatorParamMaps\u003dparamGrid,\n                           evaluator\u003dRegressionEvaluator(),\n                           trainRatio\u003d0.8)\n\nmodel \u003d tvs.fit(train_train)\nmodel.summary",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 5:26:14 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": false,
+        "results": {},
+        "editorSetting": {},
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1493315917877_-1266307676",
+      "id": "20170427-135837_684025648",
+      "dateCreated": "Apr 27, 2017 1:58:37 PM",
+      "dateStarted": "Apr 27, 2017 2:57:37 PM",
+      "dateFinished": "Apr 27, 2017 3:00:12 PM",
+      "status": "ERROR",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\n# dir(linrModel.summary)\nmodel.summary.meanAbsoluteError, model.summary.meanSquaredError, model.summary.r2,  model.summary.rootMeanSquaredError",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 5:26:15 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "(0.07455381167281334, 0.030144847716962908, -5.74429392941056e-13, 0.1736227165925096)\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493582700036_1638087",
+      "id": "20170430-160500_2020466452",
+      "dateCreated": "Apr 30, 2017 4:05:00 PM",
+      "dateStarted": "Apr 30, 2017 4:07:09 PM",
+      "dateFinished": "Apr 30, 2017 4:07:09 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Load/Save regression model",
+      "text": "%pyspark\n# linrModel \u003d LinearRegression.load(\"linrModel\")\nmodel.save(os.path.join(dir_name, \u0027linrModel\u0027))",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 5:26:15 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1493495413444_2073242980",
+      "id": "20170429-155013_1734071651",
+      "dateCreated": "Apr 29, 2017 3:50:13 PM",
+      "dateStarted": "Apr 30, 2017 4:03:24 PM",
+      "dateFinished": "Apr 30, 2017 4:03:25 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Predict the train - test data",
+      "text": "%pyspark\ntrain_test_predictions \u003d model.transform(train_test)\ntrain_test_predictions",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 5:26:16 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1493319754718_1388396197",
+      "id": "20170427-150234_751753614",
+      "dateCreated": "Apr 27, 2017 3:02:34 PM",
+      "dateStarted": "Apr 30, 2017 4:09:51 PM",
+      "dateFinished": "Apr 30, 2017 4:09:52 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Save train-test prediction",
+      "text": "%pyspark\ntrain_test_predictions.write.options(header\u003d\"true\").parquet(os.path.join(dir_name ,\"train_test_predictions\"), \"overwrite\")",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 4:12:56 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1493583135017_1020865283",
+      "id": "20170430-161215_594094575",
+      "dateCreated": "Apr 30, 2017 4:12:15 PM",
+      "dateStarted": "Apr 30, 2017 4:12:56 PM",
+      "dateFinished": "Apr 30, 2017 4:17:38 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Evaluate prediction performance",
+      "text": "%pyspark\nfrom pyspark.ml.evaluation import RegressionEvaluator\n\nevaluator \u003d RegressionEvaluator(predictionCol\u003d\"prediction\", labelCol\u003d\u0027normCTR\u0027)\n# evaluator.evaluate(train_test_predictions, {evaluator.metricName: \"r2\"})\nevaluator.evaluate(train_test_predictions, {evaluator.metricName: \"mae\"})",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 5:26:17 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0.07462126094534939\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493581189043_-1697218775",
+      "id": "20170430-153949_1886320079",
+      "dateCreated": "Apr 30, 2017 3:39:49 PM",
+      "dateStarted": "Apr 30, 2017 4:20:56 PM",
+      "dateFinished": "Apr 30, 2017 4:27:28 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## PART 3: Suggest a modification to the training set to improve model performance. \nJustify using the error analysis.\n\n### Answer:\nThe same prediction below is given for all test_test dataset. This is defintely wrong.\nI belive the issue is caused by the fact that Linear Regression only works well on linear and continuous data, neither of which match the characteristics of the data here. The OneHotEncoding is tried on the data. However, it exceeds the machine\u0027s memory capacity.\nIn the next part, the Random Forest model is tried with to improve the model performance for the minimal data preprocessing required.",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 6:19:42 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003ePART 3: Suggest a modification to the training set to improve model performance.\u003c/h2\u003e\n\u003cp\u003eJustify using the error analysis.\u003c/p\u003e\n\u003ch3\u003eAnswer:\u003c/h3\u003e\n\u003cp\u003eThe same prediction below is given for all test_test dataset. This is defintely wrong.\u003cbr/\u003eI belive the issue is caused by the fact that Linear Regression only works well on linear and continuous data, neither of which match the characteristics of the data here. The OneHotEncoding is tried on the data. However, it exceeds the machine\u0026rsquo;s memory capacity.\u003cbr/\u003eIn the next part, the Random Forest model is tried with to improve the model performance for the minimal data preprocessing required.\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493499295097_-1966693279",
+      "id": "20170429-165455_801493034",
+      "dateCreated": "Apr 29, 2017 4:54:55 PM",
+      "dateStarted": "Apr 30, 2017 6:19:42 PM",
+      "dateFinished": "Apr 30, 2017 6:19:42 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%pyspark\ntrain_test_predictions.registerTempTable(\"train_test_predictions\")",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 5:31:23 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/python"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1493584197026_-30179532",
+      "id": "20170430-162957_763899260",
+      "dateCreated": "Apr 30, 2017 4:29:57 PM",
+      "dateStarted": "Apr 30, 2017 4:31:36 PM",
+      "dateFinished": "Apr 30, 2017 4:31:37 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%sql\nSELECT prediction, normCTR FROM train_test_predictions",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 5:31:32 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {
+          "0": {
+            "graph": {
+              "mode": "multiBarChart",
+              "height": 300.0,
+              "optionOpen": false,
+              "setting": {
+                "multiBarChart": {}
+              },
+              "commonSetting": {},
+              "keys": [
+                {
+                  "name": "prediction",
+                  "index": 0.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "normCTR",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ],
+              "groups": [],
+              "values": [
+                {
+                  "name": "prediction",
+                  "index": 0.0,
+                  "aggr": "sum"
+                },
+                {
+                  "name": "normCTR",
+                  "index": 1.0,
+                  "aggr": "sum"
+                }
+              ]
+            },
+            "helium": {}
+          }
+        },
+        "editorSetting": {
+          "language": "sql",
+          "editOnDblClick": false
+        },
+        "editorMode": "ace/mode/sql"
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TABLE",
+            "data": "prediction\tnormCTR\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n0.0396690694652416\t0.0\n\u003c!--TABLE_COMMENT--\u003e\n\u003cfont color\u003dred\u003eResults are limited by 1000.\u003c/font\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493584173039_1718657460",
+      "id": "20170430-162933_391435910",
+      "dateCreated": "Apr 30, 2017 4:29:33 PM",
+      "dateStarted": "Apr 30, 2017 4:38:33 PM",
+      "dateFinished": "Apr 30, 2017 4:39:18 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## PART 4: Implement the suggested feature change to the original model, report results, and compare the performance to the original model. \nSubmit the code and the data sets with the new predictions for the training and test set.\n\n## Answer:\nWith the Random Forest model implemented, the MSE is reducted from 0.07462126094534939(Linear Regression) to 0.016257920784253827.\n\nThe normCTR predictions in parquet for the following data sets can be found at: https://www.dropbox.com/sh/exqk2ks8p7el6vd/AABMnb_Rs9xLSBmFAKM2Tzyra?dl\u003d0\n* the training (`train_prediction`)\n* the test (`test_prediction`)\n",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 7:43:18 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003ePART 4: Implement the suggested feature change to the original model, report results, and compare the performance to the original model.\u003c/h2\u003e\n\u003cp\u003eSubmit the code and the data sets with the new predictions for the training and test set.\u003c/p\u003e\n\u003ch2\u003eAnswer:\u003c/h2\u003e\n\u003cp\u003eWith the Random Forest model implemented, the MSE is reducted from 0.07462126094534939(Linear Regression) to 0.016257920784253827.\u003c/p\u003e\n\u003cp\u003eThe normCTR predictions in parquet for the following data sets can be found at: \u003ca href\u003d\"https://www.dropbox.com/sh/exqk2ks8p7el6vd/AABMnb_Rs9xLSBmFAKM2Tzyra?dl\u003d0\"\u003ehttps://www.dropbox.com/sh/exqk2ks8p7el6vd/AABMnb_Rs9xLSBmFAKM2Tzyra?dl\u003d0\u003c/a\u003e\u003cbr/\u003e* the training (\u003ccode\u003etrain_prediction\u003c/code\u003e)\u003cbr/\u003e* the test (\u003ccode\u003etest_prediction\u003c/code\u003e)\u003c/p\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493499314394_-864910347",
+      "id": "20170429-165514_697805990",
+      "dateCreated": "Apr 29, 2017 4:55:14 PM",
+      "dateStarted": "Apr 30, 2017 7:43:18 PM",
+      "dateFinished": "Apr 30, 2017 7:43:18 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Train Random Forest Regressor",
+      "text": "%pyspark\nfrom pyspark.ml.regression import RandomForestRegressor\n\nrfr \u003d RandomForestRegressor( labelCol\u003d\"normCTR\", featuresCol\u003d\"features\", predictionCol\u003d\"prediction\",)\nmodel \u003d rfr.fit(train_train)\nmodel.summary",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 5:31:07 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1493587174054_577226778",
+      "id": "20170430-171934_2012332230",
+      "dateCreated": "Apr 30, 2017 5:19:34 PM",
+      "dateStarted": "Apr 30, 2017 5:20:52 PM",
+      "dateFinished": "Apr 30, 2017 5:58:10 PM",
+      "status": "ERROR",
+      "errorMessage": "",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Load/Save regression model",
+      "text": "%pyspark\n# linrModel \u003d LinearRegression.load(\"rfrModel\")\nmodel.save(os.path.join(dir_name, \u0027rfrModel\u0027))",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 5:59:59 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1493588830137_-1701529875",
+      "id": "20170430-174710_669033041",
+      "dateCreated": "Apr 30, 2017 5:47:10 PM",
+      "dateStarted": "Apr 30, 2017 5:59:59 PM",
+      "dateFinished": "Apr 30, 2017 6:00:02 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Predict the train-test data for evaluation",
+      "text": "%pyspark\ntrain_test_predictions \u003d model.transform(train_test)\ntrain_test_predictions",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 7:36:55 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "DataFrame[normCTR: double, features: vector, prediction: double]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493587834236_1738688997",
+      "id": "20170430-173034_1970420190",
+      "dateCreated": "Apr 30, 2017 5:30:34 PM",
+      "dateStarted": "Apr 30, 2017 6:00:12 PM",
+      "dateFinished": "Apr 30, 2017 6:00:12 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Evaluate prediction performance on train-test data",
+      "text": "%pyspark\nfrom pyspark.ml.evaluation import RegressionEvaluator\nevaluator \u003d RegressionEvaluator(predictionCol\u003d\"prediction\", labelCol\u003d\u0027normCTR\u0027)\n# evaluator.evaluate(train_test_predictions, {evaluator.metricName: \"r2\"})\nevaluator.evaluate(train_test_predictions, {evaluator.metricName: \"mae\"})",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 6:22:26 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "0.016257920784253827\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493587904193_515110874",
+      "id": "20170430-173144_1350704252",
+      "dateCreated": "Apr 30, 2017 5:31:44 PM",
+      "dateStarted": "Apr 30, 2017 6:01:52 PM",
+      "dateFinished": "Apr 30, 2017 6:09:06 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Generate train_prediction",
+      "text": "%pyspark\ntrain_prediction \u003d model.transform(train).drop(\u0027features\u0027, \u0027normCTR\u0027)\ntrain_prediction",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 7:33:25 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "DataFrame[prediction: double]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493594975492_-988488654",
+      "id": "20170430-192935_31742085",
+      "dateCreated": "Apr 30, 2017 7:29:35 PM",
+      "dateStarted": "Apr 30, 2017 7:33:25 PM",
+      "dateFinished": "Apr 30, 2017 7:33:25 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Generate test_prediction",
+      "text": "%pyspark\ntest_prediction \u003d model.transform(test).drop(\u0027features\u0027)\ntest_prediction",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 7:33:23 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "TEXT",
+            "data": "DataFrame[prediction: double]\n"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493590880955_-1816073966",
+      "id": "20170430-182120_1118104305",
+      "dateCreated": "Apr 30, 2017 6:21:20 PM",
+      "dateStarted": "Apr 30, 2017 7:33:23 PM",
+      "dateFinished": "Apr 30, 2017 7:33:23 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Save prediction in train_prediction",
+      "text": "%pyspark\ntrain_prediction.write.options(header\u003d\"true\").parquet(os.path.join(dir_name,\"train_prediction\"),\u0027overwrite\u0027)",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 7:33:42 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1493591005846_1028190763",
+      "id": "20170430-182325_1408726733",
+      "dateCreated": "Apr 30, 2017 6:23:25 PM",
+      "dateStarted": "Apr 30, 2017 7:33:42 PM",
+      "dateFinished": "Apr 30, 2017 7:36:00 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "title": "Save prediction in test_prediction",
+      "text": "%pyspark\ntest_prediction.write.options(header\u003d\"true\").parquet(os.path.join(dir_name,\"test_prediction\"),\u0027overwrite\u0027)",
+      "user": "anonymous",
+      "dateUpdated": "Apr 30, 2017 7:37:00 PM",
+      "config": {
+        "colWidth": 6.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "python"
+        },
+        "editorMode": "ace/mode/python",
+        "title": true,
+        "editorHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": []
+      },
+      "apps": [],
+      "jobName": "paragraph_1493594989730_450502881",
+      "id": "20170430-192949_1081079853",
+      "dateCreated": "Apr 30, 2017 7:29:49 PM",
+      "dateStarted": "Apr 30, 2017 7:37:00 PM",
+      "dateFinished": "Apr 30, 2017 7:44:06 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n## Reference\n* A Two-Stage Ensemble of Diverse Models for Advertisement Ranking in KDD Cup 2012",
+      "user": "anonymous",
+      "dateUpdated": "Apr 29, 2017 4:07:30 PM",
+      "config": {
+        "colWidth": 12.0,
+        "enabled": true,
+        "results": {},
+        "editorSetting": {
+          "language": "markdown",
+          "editOnDblClick": true
+        },
+        "editorMode": "ace/mode/markdown",
+        "editorHide": true,
+        "tableHide": false
+      },
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "results": {
+        "code": "SUCCESS",
+        "msg": [
+          {
+            "type": "HTML",
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch2\u003eReference\u003c/h2\u003e\n\u003cul\u003e\n  \u003cli\u003eA Two-Stage Ensemble of Diverse Models for Advertisement Ranking in KDD Cup 2012\u003c/li\u003e\n\u003c/ul\u003e\n\u003c/div\u003e"
+          }
+        ]
+      },
+      "apps": [],
+      "jobName": "paragraph_1493318987364_963927336",
+      "id": "20170427-144947_1274782457",
+      "dateCreated": "Apr 27, 2017 2:49:47 PM",
+      "dateStarted": "Apr 29, 2017 4:07:30 PM",
+      "dateFinished": "Apr 29, 2017 4:07:30 PM",
+      "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    }
+  ],
+  "name": "/pCTR/HW3",
+  "id": "2CF1KCXC7",
+  "angularObjects": {
+    "2CGRCWS7B:shared_process": [],
+    "2CEJ2P2FV:shared_process": [],
+    "2CGD89D7T:shared_process": [],
+    "2CDR262YF:shared_process": [],
+    "2CGD88WGM:shared_process": [],
+    "2CE3RQP7C:shared_process": [],
+    "2CF6E122K:shared_process": [],
+    "2CH1G59ET:shared_process": []
+  },
+  "config": {},
+  "info": {}
+}
