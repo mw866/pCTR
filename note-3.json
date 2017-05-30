@@ -1,9 +1,9 @@
 {
   "paragraphs": [
     {
-      "text": "%md\n# CS 5304 Assignments #3\nBy Chris M Wang (mw866@cornell.edu)",
+      "text": "%md\n# CS 5304 Assignments #3\nBy Chris M Wang",
       "user": "anonymous",
-      "dateUpdated": "Apr 27, 2017 1:55:35 PM",
+      "dateUpdated": "May 30, 2017 5:33:33 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -25,7 +25,7 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eCS 5304 Assignments #3\u003c/h1\u003e\n\u003cp\u003eBy Chris M Wang (\u003ca href\u003d\"mailto:\u0026#109;w\u0026#56;\u0026#x36;\u0026#x36;\u0026#x40;\u0026#x63;\u0026#111;\u0026#x72;\u0026#x6e;e\u0026#108;\u0026#x6c;\u0026#46;e\u0026#100;\u0026#117;\"\u003e\u0026#109;w\u0026#56;\u0026#x36;\u0026#x36;\u0026#x40;\u0026#x63;\u0026#111;\u0026#x72;\u0026#x6e;e\u0026#108;\u0026#x6c;\u0026#46;e\u0026#100;\u0026#117;\u003c/a\u003e)\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eCS 5304 Assignments #3\u003c/h1\u003e\n\u003cp\u003eBy Chris M Wang\u003c/p\u003e\n\u003c/div\u003e"
           }
         ]
       },
@@ -33,16 +33,16 @@
       "jobName": "paragraph_1493315700403_-63469888",
       "id": "20170427-135500_1483027983",
       "dateCreated": "Apr 27, 2017 1:55:00 PM",
-      "dateStarted": "Apr 27, 2017 1:55:35 PM",
-      "dateFinished": "Apr 27, 2017 1:55:38 PM",
+      "dateStarted": "May 30, 2017 5:33:33 PM",
+      "dateFinished": "May 30, 2017 5:33:33 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
     {
-      "title": "Intialiaze",
+      "title": "Initialiaze",
       "text": "%pyspark\nimport numpy as np\nfrom pyspark.sql.functions import *\nfrom pyspark.sql.types import *\nfrom pyspark.sql import functions\nfrom __future__ import division\n\nimport os.path\ndir_name \u003d \"/Users/kylin1989/Downloads/data\"\n\nspark \u003d SparkSession.builder.appName(\"pCTR\").config(\"spark.sql.broadcastTimeout\", \"6000\").getOrCreate()",
       "user": "anonymous",
-      "dateUpdated": "Apr 30, 2017 3:24:54 PM",
+      "dateUpdated": "Apr 30, 2017 7:50:55 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -73,9 +73,9 @@
     },
     {
       "title": "Load training parquet",
-      "text": "%pyspark\ntrain \u003d spark.read.format(\"parquet\").options(header\u003d\"true\", inferSchema\u003d\"true\").load(os.path.join(dir_name, \"training_top25K_normCTR_assembled\"))\ntrain",
+      "text": "%pyspark\ntrain \u003d spark.read.format(\"csv\").options(header\u003d\"true\", inferSchema\u003d\"true\").load(os.path.join(dir_name, \"test.csv\"))\ntrain",
       "user": "anonymous",
-      "dateUpdated": "Apr 30, 2017 6:24:27 PM",
+      "dateUpdated": "May 18, 2017 10:36:10 AM",
       "config": {
         "colWidth": 6.0,
         "enabled": true,
@@ -99,11 +99,11 @@
         "forms": {}
       },
       "results": {
-        "code": "SUCCESS",
+        "code": "ERROR",
         "msg": [
           {
             "type": "TEXT",
-            "data": "DataFrame[normCTR: double, features: vector]\n"
+            "data": "pyspark is not responding"
           }
         ]
       },
@@ -111,9 +111,9 @@
       "jobName": "paragraph_1493315848653_-1728446944",
       "id": "20170427-135728_48369402",
       "dateCreated": "Apr 27, 2017 1:57:28 PM",
-      "dateStarted": "Apr 30, 2017 3:37:52 PM",
-      "dateFinished": "Apr 30, 2017 3:37:59 PM",
-      "status": "FINISHED",
+      "dateStarted": "May 18, 2017 10:36:11 AM",
+      "dateFinished": "May 18, 2017 10:36:56 AM",
+      "status": "ERROR",
       "progressUpdateIntervalMs": 500
     },
     {
@@ -696,7 +696,7 @@
       "title": "Evaluate prediction performance",
       "text": "%pyspark\nfrom pyspark.ml.evaluation import RegressionEvaluator\n\nevaluator \u003d RegressionEvaluator(predictionCol\u003d\"prediction\", labelCol\u003d\u0027normCTR\u0027)\n# evaluator.evaluate(train_test_predictions, {evaluator.metricName: \"r2\"})\nevaluator.evaluate(train_test_predictions, {evaluator.metricName: \"mae\"})",
       "user": "anonymous",
-      "dateUpdated": "Apr 30, 2017 5:26:17 PM",
+      "dateUpdated": "May 18, 2017 7:49:32 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1193,7 +1193,7 @@
     {
       "text": "%md\n## Reference\n* A Two-Stage Ensemble of Diverse Models for Advertisement Ranking in KDD Cup 2012",
       "user": "anonymous",
-      "dateUpdated": "Apr 29, 2017 4:07:30 PM",
+      "dateUpdated": "Apr 30, 2017 7:53:21 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1203,8 +1203,8 @@
           "editOnDblClick": true
         },
         "editorMode": "ace/mode/markdown",
-        "editorHide": true,
-        "tableHide": false
+        "editorHide": false,
+        "tableHide": true
       },
       "settings": {
         "params": {},
@@ -1229,7 +1229,7 @@
       "progressUpdateIntervalMs": 500
     }
   ],
-  "name": "/pCTR/HW3",
+  "name": "pCTR/HW3",
   "id": "2CF1KCXC7",
   "angularObjects": {
     "2CGRCWS7B:shared_process": [],

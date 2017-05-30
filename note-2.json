@@ -1,9 +1,9 @@
 {
   "paragraphs": [
     {
-      "text": "%md\n# CS 5304 Assignments #2\nBy Chris M Wang (mw866@cornell.edu)",
+      "text": "%md\n# CS 5304 Assignments #2\nBy Chris M Wang\n\nWe consider data used to predict the click-through-rate (pCTR) of online ads. An accurate model is necessary in the search advertising market in order to appropriately rank ads and price clicks. The data contains 11 variables and 1 output, corresponding to the number of times a given ad was clicked by the user among the number of times it was displayed.\nFor each instance (training example), the input variables serve to classify various properties of the ad displayed, in addition to the specific search query entered. The identifiers include unique identifiers for each query, ad, keyword, advertiser, title, description, display url, user, ad position, and ad depth (further details available in the KDD documentation).",
       "user": "anonymous",
-      "dateUpdated": "Apr 29, 2017 11:07:21 PM",
+      "dateUpdated": "May 30, 2017 5:33:05 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -25,7 +25,7 @@
         "msg": [
           {
             "type": "HTML",
-            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eCS 5304 Assignments #2\u003c/h1\u003e\n\u003cp\u003eBy Chris M Wang (\u003ca href\u003d\"mailto:\u0026#109;w\u0026#56;\u0026#x36;\u0026#x36;\u0026#x40;\u0026#x63;\u0026#111;\u0026#x72;\u0026#x6e;e\u0026#108;\u0026#x6c;\u0026#46;e\u0026#100;\u0026#117;\"\u003e\u0026#109;w\u0026#56;\u0026#x36;\u0026#x36;\u0026#x40;\u0026#x63;\u0026#111;\u0026#x72;\u0026#x6e;e\u0026#108;\u0026#x6c;\u0026#46;e\u0026#100;\u0026#117;\u003c/a\u003e)\u003c/p\u003e\n\u003c/div\u003e"
+            "data": "\u003cdiv class\u003d\"markdown-body\"\u003e\n\u003ch1\u003eCS 5304 Assignments #2\u003c/h1\u003e\n\u003cp\u003eBy Chris M Wang\u003c/p\u003e\n\u003cp\u003eWe consider data used to predict the click-through-rate (pCTR) of online ads. An accurate model is necessary in the search advertising market in order to appropriately rank ads and price clicks. The data contains 11 variables and 1 output, corresponding to the number of times a given ad was clicked by the user among the number of times it was displayed.\u003cbr/\u003eFor each instance (training example), the input variables serve to classify various properties of the ad displayed, in addition to the specific search query entered. The identifiers include unique identifiers for each query, ad, keyword, advertiser, title, description, display url, user, ad position, and ad depth (further details available in the KDD documentation).\u003c/p\u003e\n\u003c/div\u003e"
           }
         ]
       },
@@ -33,8 +33,8 @@
       "jobName": "paragraph_1493005023932_-293168309",
       "id": "20170423-233703_1256560744",
       "dateCreated": "Apr 23, 2017 11:37:03 PM",
-      "dateStarted": "Apr 29, 2017 11:07:21 PM",
-      "dateFinished": "Apr 29, 2017 11:07:21 PM",
+      "dateStarted": "May 30, 2017 5:33:05 PM",
+      "dateFinished": "May 30, 2017 5:33:05 PM",
       "status": "FINISHED",
       "progressUpdateIntervalMs": 500
     },
@@ -776,10 +776,10 @@
       "title": "Create string indexer and one-hot-encoder",
       "text": "%pyspark\nfrom pyspark.ml.feature import StringIndexer, OneHotEncoder\n\ndef stringindexonehotencode(df):\n    # string_cols \u003d [\"DisplayURL\", \"AdID\", \"AdvertiserID\", \"QueryID\", \"KeywordID\",  \"TitleID\", \"DescriptionID\", \"UserID\"]\n    string_cols \u003d [ \"AdID\", \"QueryID\",\"UserID\"]\n\n    for col in string_cols:\n        # string_indexer \u003d StringIndexer(inputCol\u003dcol, outputCol\u003d(col + \"_index\"))\n        # string_indexer.fit(df)\n        # df \u003d str_indexer.transform(df)\n        # onehot_encoder \u003d OneHotEncoder(inputCol\u003d col + \"_index\", outputCol\u003d col + \"_onehot\")\n        onehot_encoder \u003d OneHotEncoder(inputCol\u003d col, outputCol\u003d col + \"_onehot\")\n\n        df \u003d onehot_encoder.transform(df)\n        df.drop(col).withColumnRenamed(col + \"_onehot\", col)\n   \n    return df",
       "user": "anonymous",
-      "dateUpdated": "Apr 30, 2017 4:54:15 PM",
+      "dateUpdated": "Apr 30, 2017 7:48:10 PM",
       "config": {
         "colWidth": 12.0,
-        "enabled": true,
+        "enabled": false,
         "results": {},
         "editorSetting": {
           "language": "python",
@@ -838,10 +838,10 @@
       "progressUpdateIntervalMs": 500
     },
     {
-      "title": "Shape training dataset",
+      "title": "Shape training dataset (\u0027GC overhead limit exceeded\u0027)",
       "text": "%pyspark\ntraining_top25K_normCTR_encoded \u003d stringindexonehotencode(training_top25K_normCTR)\ntraining_top25K_normCTR_encoded",
       "user": "anonymous",
-      "dateUpdated": "Apr 30, 2017 4:54:19 PM",
+      "dateUpdated": "Apr 30, 2017 7:48:31 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1042,7 +1042,7 @@
     {
       "text": "%pyspark\n",
       "user": "anonymous",
-      "dateUpdated": "Apr 29, 2017 10:54:01 PM",
+      "dateUpdated": "Apr 30, 2017 7:47:44 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
