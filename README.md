@@ -2,13 +2,16 @@
 Predict the Click-Through Rate of ads given the query and user information.
 
 
+
+
 ## Usage
 
+* View the Zeppelin notebooks online:
+  * `note-2`: https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL213ODY2L3BDVFIvbWFzdGVyL25vdGUtMi5qc29uP3Rva2VuPUFVTFhpUklHczFpYmxKeF9CSnU1UUZNcFh1OUpyLWZFa3M1Wk55QjF3QSUzRCUzRA
+  * `note-3`: https://www.zeppelinhub.com/viewer/notebooks/aHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL213ODY2L3BDVFIvbWFzdGVyL25vdGUtMy5qc29uP3Rva2VuPUFVTFhpYXJsR0lfQnNXbEJ5S1RKcnhiREgxTm9CR1Ita3M1Wk55RGt3QSUzRCUzRA
 * Run Zeppelin:
-
   *  `bin/zeppelin-daemon.sh {start|stop|upstart|restart|reload|status}`
   *  Go to [http://localhost:8080](http://localhost:8080/) 
-
 * Run Spark Web UI:
 
   * http://localhost:4040/jobs/
@@ -49,7 +52,7 @@ The testing dataset shares the same format as the training dataset, except for t
 * Apache Hivemall solution: http://hivemall.incubator.apache.org/userguide/regression/kddcup12tr2.html
 * Position-Normalized Click Prediction in Search Advertising: http://dl.acm.org/citation.cfm?id=2339654
 * CTR Definition: https://support.google.com/adwords/answer/2615875?hl=en
-* A Two-Stage Ensemble of Diverse Models for Advertisement Ranking in KDD Cup 2012: www.csie.ntu.edu.tw/~htlin/paper/doc/wskdd12cup.pdf  			
+ * A Two-Stage Ensemble of Diverse Models for Advertisement Ranking in KDD Cup 2012: www.csie.ntu.edu.tw/~htlin/paper/doc/wskdd12cup.pdf  		
 
 ### Zeppelin
 

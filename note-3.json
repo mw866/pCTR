@@ -40,9 +40,9 @@
     },
     {
       "title": "Initialiaze",
-      "text": "%pyspark\nimport numpy as np\nfrom pyspark.sql.functions import *\nfrom pyspark.sql.types import *\nfrom pyspark.sql import functions\nfrom __future__ import division\n\nimport os.path\ndir_name \u003d \"/Users/kylin1989/Downloads/data\"\n\nspark \u003d SparkSession.builder.appName(\"pCTR\").config(\"spark.sql.broadcastTimeout\", \"6000\").getOrCreate()",
+      "text": "%pyspark\nimport numpy as np\nfrom pyspark.sql.functions import *\nfrom pyspark.sql.types import *\nfrom pyspark.sql import functions\nfrom __future__ import division\n\nimport os.path\ndir_name \u003d \"/Users/_/Downloads/data\"\n\nspark \u003d SparkSession.builder.appName(\"pCTR\").config(\"spark.sql.broadcastTimeout\", \"6000\").getOrCreate()",
       "user": "anonymous",
-      "dateUpdated": "Apr 30, 2017 7:50:55 PM",
+      "dateUpdated": "May 30, 2017 5:42:26 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1193,7 +1193,7 @@
     {
       "text": "%md\n## Reference\n* A Two-Stage Ensemble of Diverse Models for Advertisement Ranking in KDD Cup 2012",
       "user": "anonymous",
-      "dateUpdated": "Apr 30, 2017 7:53:21 PM",
+      "dateUpdated": "May 30, 2017 5:42:11 PM",
       "config": {
         "colWidth": 12.0,
         "enabled": true,
@@ -1203,8 +1203,8 @@
           "editOnDblClick": true
         },
         "editorMode": "ace/mode/markdown",
-        "editorHide": false,
-        "tableHide": true
+        "editorHide": true,
+        "tableHide": false
       },
       "settings": {
         "params": {},
@@ -1223,9 +1223,25 @@
       "jobName": "paragraph_1493318987364_963927336",
       "id": "20170427-144947_1274782457",
       "dateCreated": "Apr 27, 2017 2:49:47 PM",
-      "dateStarted": "Apr 29, 2017 4:07:30 PM",
-      "dateFinished": "Apr 29, 2017 4:07:30 PM",
+      "dateStarted": "May 30, 2017 5:42:11 PM",
+      "dateFinished": "May 30, 2017 5:42:15 PM",
       "status": "FINISHED",
+      "progressUpdateIntervalMs": 500
+    },
+    {
+      "text": "%md\n",
+      "user": "anonymous",
+      "dateUpdated": "May 30, 2017 5:42:11 PM",
+      "config": {},
+      "settings": {
+        "params": {},
+        "forms": {}
+      },
+      "apps": [],
+      "jobName": "paragraph_1496180531216_448490571",
+      "id": "20170530-174211_1213398862",
+      "dateCreated": "May 30, 2017 5:42:11 PM",
+      "status": "READY",
       "progressUpdateIntervalMs": 500
     }
   ],

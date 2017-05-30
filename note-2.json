@@ -40,9 +40,9 @@
     },
     {
       "title": "Initialize",
-      "text": "%pyspark\nimport numpy as np\nfrom pyspark.sql.functions import *\nfrom pyspark.sql.types import *\nfrom pyspark.sql import functions\nfrom __future__ import division\n\nimport os.path\ndir_name \u003d \"/Users/kylin1989/Downloads/data\"\n\nspark \u003d SparkSession.builder.appName(\"pCTR\").config(\"spark.sql.broadcastTimeout\", \"6000\").getOrCreate()",
+      "text": "%pyspark\nimport numpy as np\nfrom pyspark.sql.functions import *\nfrom pyspark.sql.types import *\nfrom pyspark.sql import functions\nfrom __future__ import division\n\nimport os.path\ndir_name \u003d \"/Users/_/Downloads/data\"\n\nspark \u003d SparkSession.builder.appName(\"pCTR\").config(\"spark.sql.broadcastTimeout\", \"6000\").getOrCreate()",
       "user": "anonymous",
-      "dateUpdated": "Apr 30, 2017 4:46:26 PM",
+      "dateUpdated": "May 30, 2017 5:41:23 PM",
       "config": {
         "lineNumbers": false,
         "tableHide": false,
