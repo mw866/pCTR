@@ -1,8 +1,6 @@
 # pCTR
-Predict the Click-Through Rate of ads given the query and user information.
-
-
-
+Predict the Click-Through Rate of ads given the query and user information
+The data sets are from KDD Cup 2012, Track 2.
 
 ## Usage
 
@@ -21,7 +19,7 @@ Predict the Click-Through Rate of ads given the query and user information.
 
 ### Overview
 
-![data.png](data.png)
+![data.png](data.PNG)
 
 ### Training
 
